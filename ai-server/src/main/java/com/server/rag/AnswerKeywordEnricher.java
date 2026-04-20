@@ -18,6 +18,7 @@ public class AnswerKeywordEnricher {
 
     public List<Document> enrichDocuments(List<Document> documents)
     {
+        //元信息补充
         KeywordMetadataEnricher keywordMetadataEnricher = new KeywordMetadataEnricher(dashscopeChatModel, 5);
         return  keywordMetadataEnricher.apply(documents);
     }
