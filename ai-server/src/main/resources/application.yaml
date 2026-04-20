@@ -8,3 +8,10 @@ spring:
        chat:
          options:
            model: qwen-max
+
+search-api:
+    api-key: <Your ApiKey>
+
+logging:
+  level:
+    org.springframework.ai: DEBUG
