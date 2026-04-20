@@ -5,7 +5,6 @@ target/
 .kotlin
 
 resources/
-!application.yaml
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
