@@ -1,8 +1,8 @@
 package com.server.config;
 
+import com.server.mcp.ZhiPuMcp;
 import com.server.tools.*;
 import jakarta.annotation.Resource;
-import org.springframework.ai.mcp.client.autoconfigure.properties.McpClientCommonProperties;
 import org.springframework.ai.support.ToolCallbacks;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -30,6 +30,7 @@ public class ToolsConfig {
         TerminalOperationTool terminalOperationTool = new TerminalOperationTool();
         PDFGenerationTool pdfGenerationTool = new PDFGenerationTool();
         TerminateTool terminateTool = new TerminateTool();
+        ZhiPuMcp zhiPuMcp = new ZhiPuMcp();
         return ToolCallbacks.from(
                 fileOperationTool,
                 webSearchTool,
@@ -38,7 +39,8 @@ public class ToolsConfig {
                 terminalOperationTool,
                 pdfGenerationTool,
                 terminateTool,
-                lovingAdviceTool
+                lovingAdviceTool,
+                zhiPuMcp
         );
     }
 

@@ -239,6 +239,9 @@ function deleteChat(chatId) {
   chatSessions.value = chatSessions.value.filter(s => s.id !== chatId)
   saveChatSessions()
   
+  // 同步删除后端 Redis 中的对话记忆
+  clearMemory(chatId).catch(err => console.error('Delete memory error:', err))
+
   if (currentChatId.value === chatId) {
     createNewChat()
   }

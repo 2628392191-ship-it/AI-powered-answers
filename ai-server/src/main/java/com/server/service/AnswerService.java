@@ -2,8 +2,9 @@ package com.server.service;
 
 
 import com.server.advisor.MyLoggerAdvisor;
-import com.server.chatmemory.FileBasedChatMemory;
+import com.server.chatmemory.RedisChatMemory;
 import com.server.constant.FileConstant;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
@@ -11,6 +12,7 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
@@ -23,11 +25,13 @@ public class AnswerService {
 
     private final String systemPrompt;
 
-    public AnswerService(ChatModel dashscopeChatModel){
-        String fileDir =FileConstant.CHAT_MEMORY_FILE;
-        this.chatMemory = new FileBasedChatMemory(fileDir);
+    public AnswerService(ChatModel dashscopeChatModel,StringRedisTemplate stringRedisTemplate) {
+        //使用redis存储会话记忆
+        this.chatMemory = new RedisChatMemory(stringRedisTemplate);
+        //获取系统提示词
         ClassPathResource systemPromptResource = new ClassPathResource(FileConstant.SYSTEM_PROMPT);
         systemPrompt = systemPromptResource.getDescription();
+
         chatClient = ChatClient.builder(dashscopeChatModel)
                 .defaultSystem(systemPrompt)
                 .defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
@@ -36,7 +40,6 @@ public class AnswerService {
 
 //    @Resource
 //    private VectorStore answerVectorStore;
-
 
     public Flux<String> doChatWithStream(String userMessage, String chatId) {
         return chatClient
