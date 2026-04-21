@@ -8,6 +8,23 @@ spring:
        chat:
          options:
            model: qwen-max
+   data:
+     redis:
+       host: <Your host>
+       port: <Your port>
+       database: <Your database>
+#     mcp:
+#       client:
+#         enabled: true
+#         # 配置远程 MCP Server（必须是标准 MCP 协议的服务）
+#         sse:
+#           connections:
+#             # 连接名称（自定义，可配多个）
+#             amap-mcp:
+#               url: https://mcp.amap.com/sse?key=efbce8ce223b48beba480126173dffb7.Paqza2bmUzuufSrH
+#             # 如果有其他标准 MCP Server 继续往下加
+#             # another-mcp:
+#             #   url: https://example.com/mcp/sse
 
 search-api:
     api-key: <Your ApiKey>
