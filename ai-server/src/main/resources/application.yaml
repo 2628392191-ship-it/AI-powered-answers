@@ -4,15 +4,15 @@ server:
 spring:
    ai:
      dashscope:
-       api-key: <Your ApiKey>
+       api-key: sk-b7b3fb1052354fa59a34816df1e0306d
        chat:
          options:
            model: qwen-max
    data:
      redis:
-       host: <Your host>
-       port: <Your port>
-       database: <Your database>
+       host: 192.168.233.145
+       port: 6380
+       database: 5
 #     mcp:
 #       client:
 #         enabled: true
@@ -27,7 +27,10 @@ spring:
 #             #   url: https://example.com/mcp/sse
 
 search-api:
-    api-key: <Your ApiKey>
+    api-key: efbce8ce223b48beba480126173dffb7.Paqza2bmUzuufSrH
+
+zhipu:
+  api-key: efbce8ce223b48beba480126173dffb7.Paqza2bmUzuufSrH
 
 logging:
   level:

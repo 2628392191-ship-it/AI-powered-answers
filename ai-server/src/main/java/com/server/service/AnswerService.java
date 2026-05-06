@@ -8,9 +8,11 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -38,8 +40,8 @@ public class AnswerService {
                 .build();
     }
 
-//    @Resource
-//    private VectorStore answerVectorStore;
+    @Resource
+    private VectorStore answerVectorStore;
 
     public Flux<String> doChatWithStream(String userMessage, String chatId) {
         return chatClient
@@ -47,6 +49,7 @@ public class AnswerService {
                 .user(userMessage)
                 .advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, chatId))
                 .advisors(new MyLoggerAdvisor())
+                .advisors(new QuestionAnswerAdvisor(answerVectorStore))
                 .stream()
                 .content();
     }

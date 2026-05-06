@@ -15,8 +15,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>ai-server</module>
-        <module>ai-server</module>
-        <module>ai-server</module>
     </modules>
 
     <properties>
