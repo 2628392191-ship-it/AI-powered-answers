@@ -27,7 +27,8 @@ public class ToolsConfig {
         WebSearchTool webSearchTool = new WebSearchTool(searchApiKey);
         WebScrapingTool webScrapingTool = new WebScrapingTool();
         ResourceDownloadTool resourceDownloadTool = new ResourceDownloadTool();
-        TerminalOperationTool terminalOperationTool = new TerminalOperationTool();
+        // TerminalOperationTool 具有高风险，暂不注册
+        // TerminalOperationTool terminalOperationTool = new TerminalOperationTool();
         PDFGenerationTool pdfGenerationTool = new PDFGenerationTool();
         TerminateTool terminateTool = new TerminateTool();
         ZhiPuMcp zhiPuMcp = new ZhiPuMcp();
@@ -36,7 +37,6 @@ public class ToolsConfig {
                 webSearchTool,
                 webScrapingTool,
                 resourceDownloadTool,
-                terminalOperationTool,
                 pdfGenerationTool,
                 terminateTool,
                 lovingAdviceTool,

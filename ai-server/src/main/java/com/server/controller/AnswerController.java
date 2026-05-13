@@ -15,9 +15,11 @@ public class AnswerController {
     @Resource
     private AnswerService answerService;
 
-    @GetMapping( "/sse")
-    public Flux<ServerSentEvent<String>> doChatWithLoveAppSSE(String UserMessage, String chatId) {
-        return answerService.doChatWithStream(UserMessage, chatId)
+    @GetMapping(value = "/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<String>> doChatWithLoveAppSSE(
+            @RequestParam("userMessage") String userMessage,
+            @RequestParam String chatId) {
+        return answerService.doChatWithStream(userMessage, chatId)
                 .map(chunk -> ServerSentEvent.<String>builder()
                 .data(chunk)
                 .build());

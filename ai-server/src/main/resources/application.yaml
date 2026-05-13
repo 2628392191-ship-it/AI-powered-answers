@@ -2,35 +2,25 @@ server:
   port: 8080
 
 spring:
-   ai:
-     dashscope:
-       api-key: sk-b7b3fb1052354fa59a34816df1e0306d
-       chat:
-         options:
-           model: qwen-max
-   data:
-     redis:
-       host: 192.168.233.145
-       port: 6380
-       database: 5
-#     mcp:
-#       client:
-#         enabled: true
-#         # 配置远程 MCP Server（必须是标准 MCP 协议的服务）
-#         sse:
-#           connections:
-#             # 连接名称（自定义，可配多个）
-#             amap-mcp:
-#               url: https://mcp.amap.com/sse?key=efbce8ce223b48beba480126173dffb7.Paqza2bmUzuufSrH
-#             # 如果有其他标准 MCP Server 继续往下加
-#             # another-mcp:
-#             #   url: https://example.com/mcp/sse
+  profiles:
+    active: dev
+  ai:
+      dashscope:
+        api-key: ${SPRING_AI_DASH_SCOPE_API_KEY}
+        chat:
+          options:
+            model: qwen-max
+  data:
+      redis:
+        host: ${SPRING_DATA_REDIS_HOST}
+        port: ${SPRING_DATA_REDIS_PORT}
+        database: ${SPRING_DATA_REDIS_DATABASE}
 
 search-api:
-    api-key: efbce8ce223b48beba480126173dffb7.Paqza2bmUzuufSrH
+    api-key: ${SPRING_SEARCH_API_KEY}
 
 zhipu:
-  api-key: efbce8ce223b48beba480126173dffb7.Paqza2bmUzuufSrH
+  api-key: ${ZHIPU_API_KEY}
 
 logging:
   level:

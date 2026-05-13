@@ -18,6 +18,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
 @Service
 @Slf4j
 public class AnswerService {
@@ -32,7 +35,11 @@ public class AnswerService {
         this.chatMemory = new RedisChatMemory(stringRedisTemplate);
         //获取系统提示词
         ClassPathResource systemPromptResource = new ClassPathResource(FileConstant.SYSTEM_PROMPT);
-        systemPrompt = systemPromptResource.getDescription();
+        try {
+            this.systemPrompt = systemPromptResource.getContentAsString(StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to load system prompt", e);
+        }
 
         chatClient = ChatClient.builder(dashscopeChatModel)
                 .defaultSystem(systemPrompt)
